@@ -1,0 +1,202 @@
+{% comment %} {% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Viewer with Profit Calculator</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Price Viewer</h1>
+
+        <!-- Form for stock symbol -->
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="stock_lookup">
+            <label for="stock_symbol">Enter Company Name or Stock Symbol:</label>
+            <input type="text" id="stock_symbol" name="stock_symbol" required placeholder="e.g., AAPL, TSLA" value="{{ symbol }}">
+            <button type="submit">Get Stock Price</button>
+        </form>
+
+        <!-- Display stock price and graph if available -->
+        {% if prices %}
+            <h2>Stock Symbol: {{ symbol }}</h2>
+            <p>Current Price: ${{ current_price }}</p>
+
+            <h3>Stock Prices Over Last 10 Days</h3>
+            <img src="data:image/png;base64,{{ graph_image }}" alt="Stock Price Graph">
+
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Price (USD)</th>
+                </tr>
+                {% for date, price in dates|zip_lists:prices %}
+                <tr>
+                    <td>{{ date }}</td>
+                    <td>${{ price }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+        <!-- Profit Calculator -->
+        {% if current_price %}
+        <div class="profit-calculator">
+            <h3>Profit Calculator</h3>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="profit_calculator">
+                <input type="hidden" name="symbol" value="{{ symbol }}">
+                <input type="hidden" name="current_price" value="{{ current_price }}">
+                {% for date in dates %}
+                    <input type="hidden" name="dates[]" value="{{ date }}">
+                {% endfor %}
+                {% for price in prices %}
+                    <input type="hidden" name="prices[]" value="{{ price }}">
+                {% endfor %}
+                
+                <label for="buy_price">Buy Price:</label>
+                <input type="text" id="buy_price" name="buy_price" required>
+
+                <label for="sell_price">Sell Price:</label>
+                <input type="text" id="sell_price" name="sell_price" required>
+
+                <label for="shares">Number of Shares:</label>
+                <input type="text" id="shares" name="shares" required>
+
+                <button type="submit">Calculate Profit</button>
+            </form>
+
+            {% if profit %}
+                <p><strong>Profit/Loss: ${{ profit }}</strong></p>
+            {% elif error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html> {% endcomment %}
+
+
+
+
+
+
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Viewer with Profit Calculator</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Price Viewer</h1>
+
+        <!-- Form for stock symbol -->
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="stock_lookup">
+            <label for="stock_symbol">Enter Company Name or Stock Symbol:</label>
+            <input type="text" id="stock_symbol" name="stock_symbol" required placeholder="e.g., AAPL, TSLA" value="{{ symbol }}">
+            <button type="submit">Get Stock Price</button>
+        </form>
+
+        <!-- Display stock price and graph if available -->
+        {% if prices %}
+            <h2>Stock Symbol: {{ symbol }}</h2>
+            <p>Current Price: ${{ current_price }}</p>
+
+            <h3>Stock Prices Over Last 10 Days</h3>
+            <img src="data:image/png;base64,{{ graph_image }}" alt="Stock Price Graph">
+
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Price (USD)</th>
+                </tr>
+                {% for date, price in dates|zip_lists:prices %}
+                <tr>
+                    <td>{{ date }}</td>
+                    <td>${{ price }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+        <!-- Assuming this is in base.html or another template -->
+<form action="{% url 'logout' %}" method="post" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Logout</button>
+</form>
+
+
+        <!-- Profit Calculator -->
+        {% if current_price %}
+        <div class="profit-calculator">
+            <h3>Profit Calculator</h3>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="profit_calculator">
+                <input type="hidden" name="symbol" value="{{ symbol }}">
+                <input type="hidden" name="current_price" value="{{ current_price }}">
+                {% for date in dates %}
+                    <input type="hidden" name="dates[]" value="{{ date }}">
+                {% endfor %}
+                {% for price in prices %}
+                    <input type="hidden" name="prices[]" value="{{ price }}">
+                {% endfor %}
+                
+                <label for="buy_price">Buy Price:</label>
+                <input type="text" id="buy_price" name="buy_price" required>
+
+                <label for="sell_price">Sell Price:</label>
+                <input type="text" id="sell_price" name="sell_price" required>
+
+                <label for="shares">Number of Shares:</label>
+                <input type="text" id="shares" name="shares" required>
+
+                <button type="submit">Calculate Profit</button>
+            </form>
+
+            {% if profit %}
+                <p><strong>Profit/Loss: ${{ profit }}</strong></p>
+            {% elif error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <!-- Portfolio Button at the bottom of the page -->
+        <div class="button-container" style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'portfolio' %}">
+                <button type="button" class="btn btn-primary">Go to Portfolio</button>
+            </a>
+        </div>
+
+    </div>
+</body>
+</html> 
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+<!-- myapp/templates/portfolio.html -->
+<h1>Portfolio</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+<h2>Transaction History</h2>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Symbol</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total Cost</th>
+    </tr>
+    {% for transaction in transactions %}
+    <tr>
+        <td>{{ transaction.date }}</td>
+        <td>{{ transaction.transaction_type }}</td>
+        <td>{{ transaction.symbol }}</td>
+        <td>{{ transaction.quantity }}</td>
+        <td>${{ transaction.price }}</td>
+        <td>${{ transaction.total_cost }}</td>
+    </tr>
+    {% endfor %}
+</table>
