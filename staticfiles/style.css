@@ -1,7 +1,219 @@
-body {
-    background-color: #f0f0f0;
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Reset styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-h1 {
-    color: #4a90e2;
-    font-size: 2.5rem;
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1f1c2c, #928dab); /* Sleek gradient background */
+    color: #eaeaea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container with glassmorphism effect */
+.container {
+    width: 90%;
+    max-width: 800px;
+    background: rgba(26, 26, 46, 0.7); /* Transparent background for glass effect */
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1.2s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Header styling */
+h1, h2, h3 {
+    color: #ff6b6b;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+label {
+    font-size: 1.1em;
+    color: #eaeaea;
+}
+
+input[type="text"] {
+    padding: 12px;
+    width: 100%;
+    max-width: 320px;
+    font-size: 1em;
+    border: 1px solid rgba(255, 107, 107, 0.4);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Button styling with subtle shadow and scale effect */
+button {
+    padding: 12px 24px;
+    font-size: 1em;
+    color: #ffffff;
+    background-color: #ff6b6b;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+button:hover {
+    background-color: #ff4757;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Table styling with subtle animations */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    border-radius: 12px;
+    animation: fadeInUp 0.8s ease-in;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+    color: #eaeaea;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+th {
+    background-color: rgba(255, 107, 107, 0.2);
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: rgba(46, 46, 77, 0.5);
+}
+
+/* Profit calculator section */
+.profit-calculator {
+    background-color: rgba(31, 64, 104, 0.5); /* Glassmorphism effect */
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 30px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    animation: slideIn 1s ease-in-out;
+}
+
+.profit-calculator h3 {
+    color: #4CAF50;
+}
+
+.error {
+    color: #ff6b6b;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Profit and loss conditional styles */
+.profit {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.loss {
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+/* Subtle animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    table, form, .profit-calculator {
+        font-size: 0.9em;
+    }
+
+    input[type="text"], button {
+        max-width: 100%;
+    }
+}
+
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
 }
